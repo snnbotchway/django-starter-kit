@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+    branches: ["main", "develop"]
+  pull_request:
+    branches: ["main", "develop"]
+
+jobs:
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+      - uses: pre-commit/action@v3.0.0
+
+  test-suite:
+    runs-on: ubuntu-latest
+    needs: code-quality
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set environment variables
+        run: cp .env.dist .env
+        working-directory: ./app/
+
+      - name: Test
+        # The command "pytest || [ $? -eq 5 ]" is used to run pytest and handle the situation when no tests are found.
+        # If pytest fails with an exit code other than 0, the script checks if the exit code is 5, which indicates that no tests were collected.
+        # In that case, the build is considered a success by exiting with code 0. This prevents the CI pipeline from failing when there are no tests.
+        # TODO Remove the second part "[ $? -eq 5 ]", once tests have been written.
+        run: docker compose run --rm app sh -c "pytest || [ $? -eq 5 ]"
+        working-directory: ./app/
+
+      - name: Uncreated migrations
+        run: docker compose run --rm app sh -c "python manage.py makemigrations --check --dry-run"
+        working-directory: ./app/
