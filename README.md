@@ -1,6 +1,6 @@
-# Storeroom Backend
+# project_name Backend
 
-The backend of a storeroom management app, enables seamless inventory tracking, real-time notifications, and comprehensive data analysis.
+To get started, rename all instances of `project_name` in the codebase to the name of your project.
 
 ## Development Environment Setup
 
