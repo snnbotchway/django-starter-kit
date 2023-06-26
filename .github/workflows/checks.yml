@@ -26,7 +26,7 @@ jobs:
         run: cp .env.dist .env
         working-directory: ./app/
 
-      # TODO: Uncomment after writing some tests
+      # TODO: Uncomment after writing some tests, since pytest exits with a non-zero code if there are no tests.
       # - name: Test
       #   run: docker compose run --rm app sh -c pytest
       #   working-directory: ./app/
