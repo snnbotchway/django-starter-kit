@@ -1,5 +1,4 @@
 FROM python:3.11-alpine
-LABEL maintainer="snnbotchway"
 
 ENV PYTHONUNBUFFERED 1
 
