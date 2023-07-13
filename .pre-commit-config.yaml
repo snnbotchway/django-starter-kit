@@ -9,7 +9,7 @@ repos:
     rev: 23.3.0
     hooks:
       - id: black
-        args: [--line-length=100, --preview]
+        args: [--line-length=120, --preview]
   - repo: https://github.com/pycqa/isort
     rev: 5.12.0
     hooks:
@@ -21,4 +21,4 @@ repos:
     hooks:
       - id: flake8
         exclude: (migrations|__pycache__|manage.py|settings)
-        args: [--max-line-length=100]
+        args: [--max-line-length=120]
